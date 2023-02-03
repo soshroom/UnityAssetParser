@@ -5,11 +5,11 @@ import axiosRateLimit from "axios-rate-limit";
 //asset id and extension
 const assetId = "####";
 const fileExt = "png";
-
+const RPS = 150
 
 
 const axios = axiosRateLimit(ax.create(), {
-  maxRequests: 100,
+  maxRequests: RPS,
   perMilliseconds: 1000,
 });
 
