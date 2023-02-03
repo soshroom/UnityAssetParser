@@ -3,7 +3,7 @@ import ax from "axios";
 import axiosRateLimit from "axios-rate-limit";
 
 //asset id and extension
-const assetId = "97000";
+const assetId = "####";
 const fileExt = "png";
 
 
@@ -110,7 +110,7 @@ const main = async () => {
   let downloadSuccessCount = 0
   let urlGetSuccessCount = 0
   items.forEach(async (el) => {
-    //if (fs.existsSync(`content/${assetId}/${el.guid}.${fileExt}`)) return;
+    if (fs.existsSync(`content/${assetId}/${el.guid}.${fileExt}`)) return;
     const pic = await getPicture(assetId, el.guid);
     console.log(`url loaded ${urlGetSuccessCount++}/${count}`);
     await download_image(
