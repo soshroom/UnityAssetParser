@@ -3,9 +3,9 @@ import ax from "axios";
 import axiosRateLimit from "axios-rate-limit";
 
 //asset id and extension
-const assetId = "####";
-const fileExt = "png";
-const RPS = 150
+const ASSET_ID = "####";
+const FILE_EXT = "png";
+const RPS = 150;
 
 
 const axios = axiosRateLimit(ax.create(), {
@@ -99,23 +99,23 @@ const main = async () => {
   };
 
   if (!fs.existsSync(`content`)) fs.mkdirSync(`content`);
-  if (!fs.existsSync(`content/${assetId}`)) fs.mkdirSync(`content/${assetId}`);
-  const content = await getContent(assetId);
+  if (!fs.existsSync(`content/${ASSET_ID}`)) fs.mkdirSync(`content/${ASSET_ID}`);
+  const content = await getContent(ASSET_ID);
   console.log("content loaded");
   const items = content.filter(
-    (el) => el.type == "file" && el.label.toLowerCase().endsWith(fileExt)
+    (el) => el.type == "file" && el.label.toLowerCase().endsWith(FILE_EXT)
   );
   console.log("images filtered");
   const count = items.length
   let downloadSuccessCount = 0
   let urlGetSuccessCount = 0
   items.forEach(async (el) => {
-    if (fs.existsSync(`content/${assetId}/${el.guid}.${fileExt}`)) return;
-    const pic = await getPicture(assetId, el.guid);
+    if (fs.existsSync(`content/${ASSET_ID}/${el.guid}.${FILE_EXT}`)) return;
+    const pic = await getPicture(ASSET_ID, el.guid);
     console.log(`url loaded ${urlGetSuccessCount++}/${count}`);
     await download_image(
       "https:" + pic.assetThumbnail,
-      `content/${assetId}/${el.guid}.${fileExt}`
+      `content/${ASSET_ID}/${el.guid}.${FILE_EXT}`
     );
 
     console.log(`downloaded ${downloadSuccessCount++}/${count}`);
